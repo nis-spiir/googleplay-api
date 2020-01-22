@@ -1,32 +1,32 @@
 from setuptools import setup
-from setuptools.command.build_py import build_py as _build
-
+#from setuptools.command.build_py import build_py as _build
+from distutils.command.build_py import build_py as _build_py
 
 import os.path
 import subprocess
-import shutil
 
 PROTOC_EXEC = "protoc"
 
 CURRENT_DIR = os.path.abspath( os.path.dirname( __file__ ) )
 
-class ProtobufBuilder(_build):
+class ProtobufBuilder(_build_py):
 
     def run(self):
         # check if protobuf is installed
-        exec_path = shutil.which(PROTOC_EXEC)
-        if exec_path is None:
+        try:
+            exec_path = subprocess.check_output(["which", PROTOC_EXEC])[:-1]
+        except subprocess.CalledProcessError:
             raise Exception("You should install protobuf compiler")
 
         print("Building protobuf file")
-        subprocess.run([exec_path,
+        subprocess.call([exec_path,
             "--proto_path=" + CURRENT_DIR,
             "--python_out=" + CURRENT_DIR + "/gpapi/",
             CURRENT_DIR + "/googleplay.proto"])
-        super().run()
+        _build_py.run(self)
 
 setup(name='gpapi',
-      version='0.4.4',
+      version='0.4.5',
       description='Unofficial python api for google play',
       url='https://github.com/NoMore201/googleplay-api',
       author='NoMore201',

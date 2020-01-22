@@ -1,13 +1,13 @@
-from . import googleplay_pb2
+from __future__ import print_function
+import sys
 from time import time
 from os import path
-from sys import version_info
 from re import match
+from . import googleplay_pb2
 
-VERSION = version_info[0]
-if VERSION == 2:
-    import ConfigParser
-else:
+try:
+    import ConfigParser as configparser  # python2
+except ImportError:
     import configparser
 
 
@@ -22,11 +22,9 @@ ACCOUNT = "HOSTED_OR_GOOGLE"
 filepath = path.join(path.dirname(path.realpath(__file__)),
                      'device.properties')
 
-if VERSION == 2:
-    config = ConfigParser.ConfigParser()
-else:
-    config = configparser.ConfigParser()
-config.read(filepath)
+config = configparser.ConfigParser()
+if len(config.read(filepath)) != 1:
+    print("Could not load " + filepath, file=sys.stderr)
 
 
 class InvalidLocaleError(Exception):
