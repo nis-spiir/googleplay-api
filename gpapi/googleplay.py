@@ -629,7 +629,7 @@ class GooglePlayAPI(object):
     def log(self, docid):
         log_request = googleplay_pb2.LogRequest()
         log_request.downloadConfirmationQuery = "confirmFreeDownload?doc=" + docid
-        timestamp = int(datetime.now().timestamp())
+        timestamp = int(datetime.now().strftime('%s'))  # int(datetime.now().timestamp())
         log_request.timestamp = timestamp
 
         string_request = log_request.SerializeToString()
