@@ -36,7 +36,7 @@ setup(name='gpapi',
       package_data={
           'gpapi': [
               'config.py'
-              'device.properties',
+              'device.properties.py',
               'googleplay_pb2.py',
               'googleplay.py',
               'utils.py'

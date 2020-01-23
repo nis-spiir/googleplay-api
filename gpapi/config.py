@@ -20,7 +20,7 @@ ACCOUNT = "HOSTED_OR_GOOGLE"
 # the file. Some configurations for common phones can be found here:
 # https://github.com/yeriomin/play-store-api/tree/master/src/main/resources
 filepath = path.join(path.dirname(path.realpath(__file__)),
-                     'device.properties')
+                     'device.properties.py')
 
 config = configparser.ConfigParser()
 if len(config.read(filepath)) != 1:
