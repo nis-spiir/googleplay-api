@@ -247,7 +247,7 @@ class GooglePlayAPI(object):
             self.gsfId = gsfId
             self.setAuthSubToken(authSubToken)
             # check if token is valid with a simple search
-            self.search('drv')
+            self.search('CTFPuzzle')
         else:
             raise LoginError('Either (email,pass) or (gsfId, authSubToken) is needed')
 
